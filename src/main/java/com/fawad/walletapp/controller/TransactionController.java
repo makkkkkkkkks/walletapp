@@ -30,14 +30,14 @@ public class TransactionController {
         return new ResponseEntity<>(transactionService.getById(wallet_id,id),HttpStatus.OK);
     }
     @PostMapping("/{wallet_id}")
-    public ResponseEntity<?> create(@PathVariable Long wallet_id, @Valid @RequestBody Transaction transaction, BindingResult result){
+    public ResponseEntity<?> create(@PathVariable Long wallet_id,  @RequestBody Transaction transaction, BindingResult result){
         ResponseEntity errors = validationService.validate(result);
         if(errors != null) return errors;
         Transaction transactionSaved = transactionService.createOrUpdate(wallet_id,transaction);
         return new ResponseEntity<Transaction>(transaction,HttpStatus.CREATED);
     }
     @PutMapping("/{wallet_id}/{id}")
-    public ResponseEntity<?> update(@PathVariable Long wallet_id,@PathVariable Long id,@Valid @RequestBody Transaction transaction, BindingResult result){
+    public ResponseEntity<?> update(@PathVariable Long wallet_id,@PathVariable Long id, @RequestBody Transaction transaction, BindingResult result){
         ResponseEntity errors = validationService.validate(result);
         if(errors != null) return errors;
         transaction.setId(id);
